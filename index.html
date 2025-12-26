@@ -3,166 +3,153 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DOUBLE79 GAME MART | GAMING HUB</title>
+    <title>DOUBLE79 GAME MART | PRO GAMER HUB</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #00d2ff;
             --secondary: #007bff;
-            --bg-dark: #050505;
-            --card-bg: rgba(20, 20, 20, 0.8);
-            --neon-shadow: 0 0 15px rgba(0, 210, 255, 0.5);
+            --bg-dark: #020202;
+            --card-bg: rgba(15, 15, 15, 0.9);
+            --neon-blue: #00d2ff;
+            --neon-shadow: 0 0 15px rgba(0, 210, 255, 0.6);
         }
 
         body {
             background-color: var(--bg-dark);
-            background-image: radial-gradient(circle at 50% 50%, #111 0%, #050505 100%);
+            background-image: 
+                radial-gradient(circle at 50% 50%, #0a0a0a 0%, #020202 100%),
+                linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
+                linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            background-size: 100% 100%, 100% 4px, 3px 100%; /* Scanline effect */
             color: #fff;
             font-family: 'Rajdhani', sans-serif;
             margin: 0; padding: 0;
             overflow-x: hidden;
         }
 
-        /* Header Styling */
         header {
-            padding: 25px 5%;
+            padding: 20px 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.85);
             border-bottom: 2px solid var(--primary);
-            box-shadow: 0 0 20px rgba(0, 210, 255, 0.2);
+            box-shadow: 0 0 25px rgba(0, 210, 255, 0.3);
             position: sticky; top: 0; z-index: 1000;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(15px);
         }
 
         .logo { 
             font-family: 'Orbitron', sans-serif;
-            font-size: 32px; 
+            font-size: 30px; 
             font-weight: 900; 
             color: #fff;
-            text-shadow: 0 0 10px var(--primary);
-            letter-spacing: 3px;
+            text-shadow: 0 0 10px var(--primary), 0 0 20px var(--primary);
+            letter-spacing: 4px;
         }
 
-        /* Admin Active Badge */
         .admin-status {
-            background: linear-gradient(90deg, #00d2ff, #3a7bd5);
-            color: black;
+            background: var(--primary);
+            color: #000;
             text-align: center;
             font-weight: bold;
-            font-size: 14px;
-            padding: 5px;
+            font-size: 12px;
+            padding: 4px;
             display: none;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
+            font-family: 'Orbitron', sans-serif;
         }
 
-        /* Buttons & Animations */
+        /* Gaming Button Style */
         .btn {
-            background: linear-gradient(45deg, var(--secondary), var(--primary));
-            color: white; border: none;
-            padding: 12px 28px; margin: 5px;
-            cursor: pointer; border-radius: 4px;
+            background: transparent;
+            color: var(--primary); 
+            border: 2px solid var(--primary);
+            padding: 10px 25px; margin: 5px;
+            cursor: pointer; border-radius: 0;
             font-weight: bold; font-family: 'Orbitron', sans-serif;
             transition: all 0.3s;
+            position: relative;
             clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
-            border-left: 3px solid #fff;
         }
         .btn:hover {
-            transform: translateY(-3px) scale(1.05);
+            background: var(--primary);
+            color: #000;
             box-shadow: 0 0 20px var(--primary);
-            filter: brightness(1.2);
         }
         .btn:active { transform: scale(0.9); }
 
-        /* Game Card Design */
-        .container { padding: 50px 8%; }
+        .container { padding: 40px 8%; }
 
+        /* Game Card - Pro Gaming Look */
         .game-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 35px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
         }
 
         .game-card {
             background: var(--card-bg);
-            border-radius: 0;
-            overflow: hidden;
-            border: 1px solid rgba(0, 210, 255, 0.1);
+            border: 1px solid rgba(0, 210, 255, 0.2);
             position: relative;
-            transition: 0.4s;
-            backdrop-filter: blur(5px);
-        }
-        .game-card::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px;
-            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         .game-card:hover {
             border-color: var(--primary);
             box-shadow: var(--neon-shadow);
-            transform: translateY(-10px);
+            transform: scale(1.03);
         }
 
         .game-img {
             width: 100%; height: 180px;
             object-fit: cover;
-            filter: grayscale(30%);
-            transition: 0.5s;
+            border-bottom: 2px solid var(--primary);
         }
-        .game-card:hover .game-img { filter: grayscale(0%); transform: scale(1.1); }
 
-        .game-info { padding: 25px; border-top: 1px solid rgba(255,255,255,0.1); }
+        .game-info { padding: 20px; text-align: center; }
         .game-info h3 { 
             margin: 0; font-family: 'Orbitron', sans-serif; 
-            font-size: 20px; color: var(--primary);
+            font-size: 18px; color: #fff;
             text-transform: uppercase;
         }
 
-        /* Admin Modal Styling */
+        /* Admin Modal - Password Info Removed */
         #adminPanel {
             display: none;
             position: fixed;
             top: 50%; left: 50%;
             transform: translate(-50%, -50%);
-            background: rgba(10, 10, 10, 0.95);
+            background: rgba(5, 5, 5, 0.98);
             padding: 40px;
-            border: 2px solid var(--primary);
-            box-shadow: 0 0 50px var(--primary);
-            z-index: 2000; width: 400px;
+            border: 1px solid var(--primary);
+            box-shadow: 0 0 60px rgba(0, 210, 255, 0.4);
+            z-index: 2000; width: 340px;
             text-align: center;
         }
 
+        #adminPanel h2 { font-family: 'Orbitron'; color: var(--primary); font-size: 20px; margin-bottom: 20px; }
+
         input, select, textarea {
             width: 100%; padding: 12px; margin: 10px 0;
-            background: #1a1a1a; border: 1px solid var(--primary);
-            color: white; font-family: 'Rajdhani', sans-serif;
-            box-sizing: border-box;
+            background: #000; border: 1px solid #333;
+            color: var(--primary); font-family: 'Rajdhani', sans-serif;
+            box-sizing: border-box; outline: none;
         }
+        input:focus { border-color: var(--primary); }
 
-        .download-btn {
-            width: 100%; margin-top: 15px;
-            background: transparent; border: 2px solid var(--primary);
-            color: var(--primary);
-        }
-        .download-btn:hover { background: var(--primary); color: #000; }
-
-        /* Animation for clicking */
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(0, 210, 255, 0.7); }
-            70% { box-shadow: 0 0 0 10px rgba(0, 210, 255, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(0, 210, 255, 0); }
-        }
+        .dl-btn { width: 100%; margin-top: 15px; }
+        .del-btn { background: #ff003c; border-color: #ff003c; color: #fff; width: 100%; margin-top: 10px; clip-path: none; }
+        .del-btn:hover { background: #b3002a; box-shadow: 0 0 15px #ff003c; color: #fff; }
     </style>
 </head>
 <body>
 
-<div id="adminBadge" class="admin-status">SYSTEM ACCESS GRANTED - ADMIN MODE</div>
+<div id="adminBadge" class="admin-status">AUTHORIZED PERSONNEL ONLY - SYSTEM ACTIVE</div>
 
 <header>
     <div class="logo">DOUBLE79</div>
-    <div class="nav">
-        <button id="adminMainBtn" class="btn" style="background:transparent; border:1px solid var(--primary)" onclick="openAdmin()">ADMIN LOGIN</button>
-    </div>
+    <button id="adminMainBtn" class="btn" onclick="openAdmin()">ADMIN LOGIN</button>
 </header>
 
 <div class="container">
@@ -172,34 +159,36 @@
 
 <div id="adminPanel">
     <div id="loginForm">
-        <h2 style="font-family:'Orbitron'">AUTHENTICATION</h2>
-        <input type="password" id="passCode" placeholder="ENTER ACCESS KEY (8036)">
-        <button class="btn" style="width:100%" onclick="checkAuth()">LOGIN</button>
-        <p onclick="closeAdmin()" style="cursor:pointer; color:red">ABORT</p>
+        <h2>SECURE LOGIN</h2>
+        <input type="password" id="passCode" placeholder="ENTER ACCESS KEY">
+        <button class="btn" style="width:100%" onclick="checkAuth()">INITIALIZE</button>
+        <p onclick="closeAdmin()" style="cursor:pointer; color:#555; margin-top:15px; font-size:12px">DISCONNECT</p>
     </div>
 
     <div id="uploadForm" style="display:none">
-        <h2 style="font-family:'Orbitron'">DATA UPLOAD</h2>
+        <h2>DATA UPLOAD</h2>
         <input type="text" id="name" placeholder="GAME TITLE">
-        <input type="text" id="img" placeholder="IMAGE URL">
+        <input type="text" id="img" placeholder="IMAGE LINK (URL)">
         <input type="text" id="link" placeholder="MEDIAFIRE LINK">
         <select id="mode">
-            <option value="ONLINE">ONLINE</option>
-            <option value="OFFLINE">OFFLINE</option>
+            <option value="OFFLINE">OFFLINE MODE</option>
+            <option value="ONLINE">ONLINE MODE</option>
         </select>
-        <button class="btn" style="width:100%" onclick="saveGame()">INITIALIZE UPLOAD</button>
-        <button class="btn" style="width:100%; background:grey; margin-top:10px" onclick="exitAdmin()">LOGOUT</button>
+        <button class="btn" style="width:100%" onclick="saveGame()">UPLOAD DATA</button>
+        <button class="btn" style="width:100%; background:#333; border-color:#333; margin-top:10px; clip-path:none;" onclick="exitAdmin()">LOGOUT</button>
     </div>
 </div>
 
 <script>
-    let games = JSON.parse(localStorage.getItem('dg_games')) || [];
-    let isLogged = sessionStorage.getItem('isLogged') === 'true';
+    let games = JSON.parse(localStorage.getItem('dg_v3_data')) || [];
+    let isLogged = sessionStorage.getItem('dg_logged') === 'true';
 
     function init() {
         if(isLogged) {
             document.getElementById('adminBadge').style.display = 'block';
-            document.getElementById('adminMainBtn').innerText = 'ADMIN PANEL';
+            document.getElementById('adminMainBtn').innerText = 'CONTROL PANEL';
+            document.getElementById('adminMainBtn').style.borderColor = '#00ff41';
+            document.getElementById('adminMainBtn').style.color = '#00ff41';
         }
         render();
     }
@@ -211,12 +200,12 @@
         games.forEach((game, i) => {
             grid.innerHTML += `
                 <div class="game-card">
-                    <img src="${game.img || 'https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=500'}" class="game-img">
+                    <img src="${game.img || 'https://via.placeholder.com/400x200/000/00d2ff?text=NO+IMAGE'}" class="game-img">
                     <div class="game-info">
                         <h3>${game.name}</h3>
-                        <p style="letter-spacing:1px; color:#aaa">${game.mode}</p>
-                        <button class="btn download-btn" onclick="window.open('${game.link}', '_blank')">GET GAME</button>
-                        ${isLogged ? `<button class="btn" style="background:red; width:100%; margin-top:10px" onclick="removeGame(${i})">DELETE DATA</button>` : ''}
+                        <p style="color:var(--primary); font-weight:bold; font-size:14px; margin:10px 0;">${game.mode}</p>
+                        <button class="btn dl-btn" onclick="window.open('${game.link}', '_blank')">DOWNLOAD</button>
+                        ${isLogged ? `<button class="btn del-btn" onclick="removeGame(${i})">WIPE DATA</button>` : ''}
                     </div>
                 </div>
             `;
@@ -228,13 +217,14 @@
     function showUpload() { document.getElementById('loginForm').style.display = 'none'; document.getElementById('uploadForm').style.display = 'block'; }
 
     function checkAuth() {
+        // පාස්වර්ඩ් එක 8036 ලෙසම පවතී
         if(document.getElementById('passCode').value === '8036') {
-            sessionStorage.setItem('isLogged', 'true');
+            sessionStorage.setItem('dg_logged', 'true');
             location.reload();
-        } else { alert('ACCESS DENIED!'); }
+        } else { alert('CRITICAL ERROR: ACCESS DENIED!'); }
     }
 
-    function exitAdmin() { sessionStorage.removeItem('isLogged'); location.reload(); }
+    function exitAdmin() { sessionStorage.removeItem('dg_logged'); location.reload(); }
 
     function saveGame() {
         const name = document.getElementById('name').value;
@@ -244,15 +234,15 @@
 
         if(name && link) {
             games.push({name, img, link, mode});
-            localStorage.setItem('dg_games', JSON.stringify(games));
+            localStorage.setItem('dg_v3_data', JSON.stringify(games));
             location.reload();
-        }
+        } else { alert('DATA MISSING!'); }
     }
 
     function removeGame(i) {
-        if(confirm('WIPE DATA?')) {
+        if(confirm('CONFIRM DATA WIPE?')) {
             games.splice(i, 1);
-            localStorage.setItem('dg_games', JSON.stringify(games));
+            localStorage.setItem('dg_v3_data', JSON.stringify(games));
             location.reload();
         }
     }
