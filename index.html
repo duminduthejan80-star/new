@@ -5,11 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DOUBLE79 GAME MART</title>
     <style>
-        /* CSS - Premium Design */
         body {
             background-color: #000;
             color: white;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Segoe UI', sans-serif;
             margin: 0;
             padding: 0;
         }
@@ -19,71 +18,62 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(0, 0, 0, 0.8);
-            border-bottom: 2px solid #007bff;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
+            background: #000;
+            border-bottom: 3px solid #007bff;
+            position: sticky; top: 0; z-index: 1000;
         }
 
-        .logo {
-            font-size: 28px;
-            font-weight: bold;
-            color: #fff;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
+        .logo { font-size: 26px; font-weight: 900; color: #fff; text-transform: uppercase; }
 
-        /* Home Page - Game Grid */
-        .container {
-            padding: 40px 5%;
-        }
+        .container { padding: 40px 5%; }
 
-        .category-nav {
-            margin-bottom: 30px;
-            text-align: center;
-        }
+        .category-nav { margin-bottom: 40px; text-align: center; }
 
+        /* Button Premium Styles & Animation */
         .btn {
             background: #007bff;
             color: white;
             border: none;
-            padding: 12px 25px;
+            padding: 12px 24px;
             margin: 5px;
             cursor: pointer;
-            border-radius: 30px;
+            border-radius: 8px;
             font-weight: bold;
-            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: 0.2s ease;
         }
 
-        .btn:active { transform: scale(0.9); } /* Click Animation */
-        .btn:hover { background: #0056b3; box-shadow: 0 0 15px #007bff; }
+        .btn:active { transform: scale(0.92); } /* Click Effect */
+        .btn:hover { background: #0056b3; box-shadow: 0 0 10px #007bff; }
 
+        /* Game Card Design */
         .game-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 25px;
+            gap: 30px;
         }
 
         .game-card {
             background: #111;
             border-radius: 15px;
-            padding: 20px;
-            border: 1px solid #222;
-            transition: 0.4s;
-            position: relative;
             overflow: hidden;
+            border: 1px solid #222;
+            transition: 0.3s;
         }
 
-        .game-card:hover {
-            border-color: #007bff;
-            transform: translateY(-10px);
+        .game-card:hover { border-color: #007bff; transform: translateY(-5px); }
+
+        .game-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            background: #222; /* Loading color */
         }
 
-        .game-card h3 { margin-top: 0; color: #007bff; }
-        .game-card p { font-size: 14px; color: #ccc; height: 50px; overflow: hidden; }
+        .game-info { padding: 20px; }
+        .game-info h3 { margin: 0 0 10px 0; color: #fff; }
+        .game-info p { font-size: 14px; color: #aaa; height: 40px; overflow: hidden; }
 
-        /* Admin Styles */
+        /* Admin Box */
         #adminPanel {
             display: none;
             position: fixed;
@@ -94,17 +84,13 @@
             border: 2px solid #007bff;
             border-radius: 15px;
             z-index: 2000;
-            width: 350px;
+            width: 380px;
+            box-shadow: 0 0 50px rgba(0,123,255,0.3);
         }
 
         input, textarea, select {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            background: #222;
-            border: 1px solid #444;
-            color: white;
-            border-radius: 5px;
+            width: 94%; padding: 10px; margin: 10px 0;
+            background: #222; border: 1px solid #444; color: white; border-radius: 5px;
         }
     </style>
 </head>
@@ -112,14 +98,14 @@
 
 <header>
     <div class="logo">DOUBLE79 GAME MART</div>
-    <button class="btn" style="background:transparent; border:1px solid #007bff" onclick="toggleAdmin()">Admin</button>
+    <button class="btn" style="background:transparent; border:1px solid #007bff" onclick="toggleAdmin()">Admin Login</button>
 </header>
 
 <div class="container">
     <div class="category-nav">
-        <button class="btn" onclick="filterGames('all')">All Games</button>
-        <button class="btn" onclick="filterGames('Online')">Online</button>
-        <button class="btn" onclick="filterGames('Offline')">Offline</button>
+        <button class="btn" onclick="displayGames('all')">All Games</button>
+        <button class="btn" onclick="displayGames('Online')">Online Games</button>
+        <button class="btn" onclick="displayGames('Offline')">Offline Games</button>
     </div>
 
     <div id="gameDisplay" class="game-grid">
@@ -128,28 +114,29 @@
 
 <div id="adminPanel">
     <div id="loginSection">
-        <h3>Admin Login</h3>
-        <input type="password" id="passInput" placeholder="Enter Password">
-        <button class="btn" onclick="login()">Login</button>
-        <button class="btn" style="background:red" onclick="toggleAdmin()">Close</button>
+        <h3>Admin Access</h3>
+        <input type="password" id="passInput" placeholder="Enter Password (8036)">
+        <button class="btn" style="width:100%" onclick="login()">Login</button>
+        <p style="text-align:center; cursor:pointer" onclick="toggleAdmin()">Cancel</p>
     </div>
 
     <div id="uploadSection" style="display:none">
-        <h3>Upload Game</h3>
+        <h3>Upload New Game</h3>
         <input type="text" id="gName" placeholder="Game Name">
-        <textarea id="gDesc" placeholder="Small Details"></textarea>
-        <input type="text" id="gLink" placeholder="MediaFire Download Link">
+        <input type="text" id="gImg" placeholder="Image URL (Link)">
+        <textarea id="gDesc" placeholder="Brief Description"></textarea>
+        <input type="text" id="gLink" placeholder="MediaFire Link">
         <select id="gType">
             <option value="Online">Online</option>
             <option value="Offline">Offline</option>
         </select>
-        <button class="btn" onclick="addNewGame()">Publish Game</button>
+        <button class="btn" style="width:100%" onclick="addNewGame()">Publish Now</button>
     </div>
 </div>
 
 <script>
-    // Game Data Storage (Temporary)
-    let games = JSON.parse(localStorage.getItem('myGames')) || [];
+    let games = JSON.parse(localStorage.getItem('gameData')) || [];
+    let isAdmin = false;
 
     function displayGames(filter = 'all') {
         const container = document.getElementById('gameDisplay');
@@ -160,57 +147,61 @@
         filtered.forEach((game, index) => {
             container.innerHTML += `
                 <div class="game-card">
-                    <h3>${game.name}</h3>
-                    <p>${game.desc}</p>
-                    <b style="color:#007bff">${game.type}</b> <br><br>
-                    <button class="btn" onclick="window.open('${game.link}', '_blank')">Download</button>
-                    <button id="delBtn${index}" class="btn" style="background:red; display:none" onclick="deleteGame(${index})">Delete</button>
+                    <img src="${game.img || 'https://via.placeholder.com/300x180?text=No+Image'}" class="game-img">
+                    <div class="game-info">
+                        <h3>${game.name}</h3>
+                        <p>${game.desc}</p>
+                        <div style="display:flex; justify-content:space-between; align-items:center">
+                            <span style="color:#007bff; font-weight:bold">${game.type}</span>
+                            <button class="btn" onclick="window.open('${game.link}', '_blank')">Download</button>
+                        </div>
+                        ${isAdmin ? `<button class="btn" style="background:red; width:100%; margin-top:10px" onclick="deleteGame(${index})">Delete Game</button>` : ''}
+                    </div>
                 </div>
             `;
         });
     }
 
     function toggleAdmin() {
-        let panel = document.getElementById('adminPanel');
-        panel.style.display = (panel.style.display === 'block') ? 'none' : 'block';
+        document.getElementById('adminPanel').style.display = 
+            (document.getElementById('adminPanel').style.display === 'block') ? 'none' : 'block';
     }
 
     function login() {
         if(document.getElementById('passInput').value === "8036") {
+            isAdmin = true;
             document.getElementById('loginSection').style.display = 'none';
             document.getElementById('uploadSection').style.display = 'block';
-            // Show delete buttons when logged in
-            games.forEach((_, i) => {
-                if(document.getElementById('delBtn'+i)) document.getElementById('delBtn'+i).style.display = 'inline-block';
-            });
-        } else { alert("Wrong Password!"); }
+            displayGames(); // Refresh to show delete buttons
+        } else { alert("Incorrect Password!"); }
     }
 
     function addNewGame() {
-        let name = document.getElementById('gName').value;
-        let desc = document.getElementById('gDesc').value;
-        let link = document.getElementById('gLink').value;
-        let type = document.getElementById('gType').value;
+        const name = document.getElementById('gName').value;
+        const img = document.getElementById('gImg').value;
+        const desc = document.getElementById('gDesc').value;
+        const link = document.getElementById('gLink').value;
+        const type = document.getElementById('gType').value;
 
         if(name && link) {
-            games.push({name, desc, link, type});
-            localStorage.setItem('myGames', JSON.stringify(games));
+            games.push({name, img, desc, link, type});
+            localStorage.setItem('gameData', JSON.stringify(games));
             displayGames();
-            alert("Game Added Successfully!");
+            alert("Game Added!");
+            // Clear inputs
+            document.getElementById('gName').value = '';
+            document.getElementById('gImg').value = '';
         }
     }
 
     function deleteGame(index) {
-        games.splice(index, 1);
-        localStorage.setItem('myGames', JSON.stringify(games));
-        displayGames();
+        if(confirm("Are you sure you want to delete?")) {
+            games.splice(index, 1);
+            localStorage.setItem('gameData', JSON.stringify(games));
+            displayGames();
+        }
     }
 
-    function filterGames(type) {
-        displayGames(type);
-    }
-
-    // Load games on start
     displayGames();
 </script>
 
