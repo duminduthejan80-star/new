@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DOUBLE79 GAME MART</title>
     <style>
-        /* Premium Black & Blue Theme */
+        /* Black & Blue Premium Theme */
         body {
             background-color: #000;
-            color: white;
-            font-family: 'Segoe UI', sans-serif;
+            color: #fff;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
             margin: 0; padding: 0;
         }
 
@@ -18,34 +18,27 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: #000;
             border-bottom: 3px solid #007bff;
+            background: #000;
             position: sticky; top: 0; z-index: 1000;
         }
 
-        .logo { font-size: 26px; font-weight: 900; color: #fff; text-transform: uppercase; }
+        .logo { font-size: 28px; font-weight: 900; color: #fff; text-transform: uppercase; }
 
         .container { padding: 40px 5%; }
 
-        .category-nav { margin-bottom: 40px; text-align: center; }
-
-        /* Premium Buttons with Animation */
+        /* Buttons & Animation */
         .btn {
             background: #007bff;
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            margin: 5px;
-            cursor: pointer;
-            border-radius: 8px;
-            font-weight: bold;
-            transition: 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            color: white; border: none;
+            padding: 12px 25px; margin: 5px;
+            cursor: pointer; border-radius: 8px;
+            font-weight: bold; transition: 0.2s;
         }
-
-        .btn:active { transform: scale(0.9); } /* Click Animation */
+        .btn:active { transform: scale(0.9); }
         .btn:hover { background: #0056b3; box-shadow: 0 0 15px #007bff; }
 
-        /* Game Card Display */
+        /* Game Card Design */
         .game-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -58,17 +51,21 @@
             overflow: hidden;
             border: 1px solid #222;
             transition: 0.3s;
-            position: relative;
         }
-
         .game-card:hover { border-color: #007bff; transform: translateY(-5px); }
 
-        .game-img { width: 100%; height: 180px; object-fit: cover; background: #222; }
+        .game-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover; /* Image එක ලස්සනට කොටුවට ගැලපෙන්න */
+            display: block;
+            background: #222;
+        }
 
         .game-info { padding: 20px; }
         .game-info h3 { margin: 0 0 10px 0; color: #fff; }
 
-        /* Admin Box Overlay */
+        /* Admin Box Styling */
         #adminPanel {
             display: none;
             position: fixed;
@@ -79,93 +76,81 @@
             border: 2px solid #007bff;
             border-radius: 15px;
             z-index: 2000;
-            width: 380px;
+            width: 350px;
             box-shadow: 0 0 50px rgba(0,123,255,0.4);
         }
 
         input, textarea, select {
-            width: 94%; padding: 10px; margin: 10px 0;
+            width: 93%; padding: 12px; margin: 10px 0;
             background: #222; border: 1px solid #444; color: white; border-radius: 5px;
         }
 
-        .admin-status {
-            text-align: center;
-            background: #007bff;
-            padding: 10px;
-            display: none;
-        }
+        .admin-label { color: #007bff; font-weight: bold; font-size: 14px; }
     </style>
 </head>
 <body>
 
-<div id="adminIndicator" class="admin-status">ADMIN MODE ACTIVE - You can Delete Games Now</div>
-
 <header>
     <div class="logo">DOUBLE79 GAME MART</div>
-    <div id="headerBtns">
-        <button class="btn" style="background:transparent; border:1px solid #007bff" onclick="toggleAdmin()">Admin Login</button>
-    </div>
+    <button class="btn" style="background:transparent; border:1px solid #007bff" onclick="toggleAdmin()">Admin Login</button>
 </header>
 
 <div class="container">
-    <div class="category-nav">
-        <button class="btn" onclick="displayGames('all')">All Games</button>
-        <button class="btn" onclick="displayGames('Online')">Online</button>
-        <button class="btn" onclick="displayGames('Offline')">Offline</button>
-    </div>
-
-    <div id="gameDisplay" class="game-grid">
+    <div class="game-grid" id="gameDisplay">
         </div>
 </div>
 
 <div id="adminPanel">
     <div id="loginSection">
         <h3>Admin Access</h3>
-        <input type="password" id="passInput" placeholder="Enter Password (8036)">
+        <input type="password" id="passInput" placeholder="Password (8036)">
         <button class="btn" style="width:100%" onclick="login()">Login</button>
-        <p style="text-align:center; cursor:pointer; color:red" onclick="toggleAdmin()">Close</p>
+        <p style="text-align:center; cursor:pointer; color:red" onclick="toggleAdmin()">Cancel</p>
     </div>
 
     <div id="uploadSection" style="display:none">
-        <h3>Upload New Game</h3>
-        <input type="text" id="gName" placeholder="Game Name">
-        <input type="text" id="gImg" placeholder="Image URL (Link)">
-        <textarea id="gDesc" placeholder="Small Details"></textarea>
+        <h3>Upload Game</h3>
+        
+        <div class="admin-label">Game Name:</div>
+        <input type="text" id="gName" placeholder="e.g. GTA V">
+        
+        <div class="admin-label">Image Link (URL):</div>
+        <input type="text" id="gImg" placeholder="Paste image link here">
+        
+        <div class="admin-label">Download Link:</div>
         <input type="text" id="gLink" placeholder="MediaFire Link">
+        
+        <div class="admin-label">Game Mode:</div>
         <select id="gType">
             <option value="Online">Online</option>
             <option value="Offline">Offline</option>
         </select>
+        
         <button class="btn" style="width:100%" onclick="addNewGame()">Publish Game</button>
-        <button class="btn" style="width:100%; background:grey; margin-top:10px" onclick="logout()">Logout Admin</button>
+        <button class="btn" style="width:100%; background:grey; margin-top:10px" onclick="logout()">Logout</button>
     </div>
 </div>
 
 <script>
-    let games = JSON.parse(localStorage.getItem('gameData')) || [];
+    let games = JSON.parse(localStorage.getItem('gameList')) || [];
     let isAdmin = false;
 
-    // Display Games function
-    function displayGames(filter = 'all') {
+    function displayGames() {
         const container = document.getElementById('gameDisplay');
         container.innerHTML = '';
 
-        const filtered = filter === 'all' ? games : games.filter(g => g.type === filter);
-
-        filtered.forEach((game, index) => {
-            let deleteBtn = isAdmin ? `<button class="btn" style="background:red; width:100%; margin-top:10px" onclick="deleteGame(${index})">Delete This Game</button>` : '';
+        games.forEach((game, index) => {
+            // පින්තූරයක් නැතිනම් පෙන්වන්න Default image එකක්
+            const imgUrl = game.img ? game.img : 'https://via.placeholder.com/400x250/111/007bff?text=DOUBLE79+GAME';
             
             container.innerHTML += `
                 <div class="game-card">
-                    <img src="${game.img || 'https://via.placeholder.com/300x180?text=DOUBLE79+GAME'}" class="game-img">
+                    <img src="${imgUrl}" class="game-img" alt="game image">
                     <div class="game-info">
                         <h3>${game.name}</h3>
-                        <p style="color:#aaa; font-size:13px">${game.desc}</p>
-                        <div style="display:flex; justify-content:space-between; align-items:center">
-                            <span style="color:#007bff; font-weight:bold">${game.type}</span>
-                            <button class="btn" onclick="window.open('${game.link}', '_blank')">Download</button>
-                        </div>
-                        ${deleteBtn}
+                        <p style="color:#007bff; font-weight:bold">${game.type}</p>
+                        <button class="btn" style="width:100%" onclick="window.open('${game.link}', '_blank')">Download Now</button>
+                        ${isAdmin ? `<button class="btn" style="background:red; width:100%; margin-top:10px" onclick="deleteGame(${index})">Delete Game</button>` : ''}
                     </div>
                 </div>
             `;
@@ -173,7 +158,7 @@
     }
 
     function toggleAdmin() {
-        let panel = document.getElementById('adminPanel');
+        const panel = document.getElementById('adminPanel');
         panel.style.display = (panel.style.display === 'block') ? 'none' : 'block';
     }
 
@@ -182,19 +167,15 @@
             isAdmin = true;
             document.getElementById('loginSection').style.display = 'none';
             document.getElementById('uploadSection').style.display = 'block';
-            document.getElementById('adminIndicator').style.display = 'block';
-            displayGames(); // Refresh the list to show delete buttons
-            alert("Welcome Admin! Now you can see Delete buttons.");
-        } else {
-            alert("Incorrect Password!");
-        }
+            displayGames();
+            alert("Admin Logged In!");
+        } else { alert("Wrong Password!"); }
     }
 
     function logout() {
         isAdmin = false;
         document.getElementById('uploadSection').style.display = 'none';
         document.getElementById('loginSection').style.display = 'block';
-        document.getElementById('adminIndicator').style.display = 'none';
         toggleAdmin();
         displayGames();
     }
@@ -202,35 +183,31 @@
     function addNewGame() {
         const name = document.getElementById('gName').value;
         const img = document.getElementById('gImg').value;
-        const desc = document.getElementById('gDesc').value;
         const link = document.getElementById('gLink').value;
         const type = document.getElementById('gType').value;
 
         if(name && link) {
-            games.push({name, img, desc, link, type});
-            localStorage.setItem('gameData', JSON.stringify(games));
+            games.push({name, img, link, type});
+            localStorage.setItem('gameList', JSON.stringify(games));
             displayGames();
             alert("Game Added Successfully!");
-            
             // Clear inputs
             document.getElementById('gName').value = '';
             document.getElementById('gImg').value = '';
-            document.getElementById('gDesc').value = '';
             document.getElementById('gLink').value = '';
         } else {
-            alert("Please fill Name and MediaFire Link!");
+            alert("Please enter Name and Download Link!");
         }
     }
 
     function deleteGame(index) {
-        if(confirm("Are you sure you want to delete this game?")) {
+        if(confirm("Delete this game?")) {
             games.splice(index, 1);
-            localStorage.setItem('gameData', JSON.stringify(games));
+            localStorage.setItem('gameList', JSON.stringify(games));
             displayGames();
         }
     }
 
-    // Initial load
     displayGames();
 </script>
 
